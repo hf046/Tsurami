@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Tsurami</string>
+    <string name="add_feeling">Add feeling</string>
+    <string name="hint_word">Description...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">word not saved because it is empty.</string>
+</resources>
