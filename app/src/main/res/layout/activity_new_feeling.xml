@@ -5,36 +5,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/big_padding"
+    android:padding="@dimen/small_padding"
     tools:context=".NewFeelingActivity">
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        style="@style/input_element"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        style="@style/base_plate"
+        android:orientation="vertical"
+        tools:context=".NewFeelingActivity">
 
-    <SeekBar
-        android:id="@+id/seekBar2"
-        style="@style/input_element"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        <LinearLayout
+            style="@style/inputs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".NewFeelingActivity">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        style="@style/input_element"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints='""'
-        android:ems="10"
-        android:hint="@string/hint_word"
-        android:inputType="textPersonName" />
+            <SeekBar
+                android:id="@+id/sanity"
+                style="@style/input_element" />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/registration_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/add_feeling" />
+            <SeekBar
+                android:id="@+id/activeness"
+                style="@style/input_element" />
 
+            <EditText
+                android:id="@+id/description"
+                style="@style/input_element"
+                android:autofillHints='""'
+                android:ems="10"
+                android:hint="@string/hint_word"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/registration_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_feeling" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

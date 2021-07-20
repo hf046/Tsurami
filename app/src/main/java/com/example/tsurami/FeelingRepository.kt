@@ -5,18 +5,16 @@ import kotlinx.coroutines.flow.flow
 
 class FeelingRepository {
     val allFeelings: Flow<List<Feeling>> = flow {
-        val feelings = listOf(
-            Feeling("a"),
-            Feeling("b"),
-            Feeling("c"),
-            Feeling("d")
-        )
+        val feelings = mutableListOf<Feeling>()
+        for (i in 1..100) {
+            feelings.add(Feeling())
+        }
         emit(feelings)
     }
 }
 
-class Feeling(val name: String) {
+class Feeling() {
     override fun toString(): String {
-        return "<Feeling>[:hash:name]:${this.hashCode()}:${name};"
+        return "<Feeling>[:hash]:${this.hashCode()};"
     }
 }

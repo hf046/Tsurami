@@ -2,35 +2,57 @@
     <!-- Base application theme. -->
     <style name="Theme.Tsurami" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryVariant">@color/orange</item>
+        <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/solid_soft_black</item>
+        <item name="colorSecondaryVariant">@color/thin_orange</item>
+        <item name="colorOnSecondary">@color/thin_azure</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="recyclerview">
-        <item name="android:background">@color/clear_yellow</item>
+    <style name="base_plate">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/background</item>
+        <item name="android:padding">0dp</item>
     </style>
 
-    <style name="feeling_record">
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:background">@color/clear_blue</item>
+    <style name="records">
+        <item name="android:background">@drawable/background</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="record">
+        <item name="android:background">@drawable/background</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+        <item name="android:paddingStart">@dimen/small_padding</item>
+        <item name="android:paddingEnd">0dp</item>
+    </style>
+
+    <style name="inputs">
+        <item name="android:background">@drawable/background</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+        <item name="android:padding">@dimen/big_padding</item>
+        <item name="android:layout_margin">@dimen/middle_margin</item>
     </style>
 
     <style name="input_element">
-        <item name="android:layout_marginBottom">8dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
-        <item name="android:background">@color/clear_green</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginBottom">@dimen/big_padding</item>
+        <item name="android:paddingLeft">@dimen/big_padding</item>
+        <item name="android:paddingRight">@dimen/big_padding</item>
+        <item name="android:background">@drawable/border</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+    </style>
+
+    <style name="fab">
+        <item name="android:backgroundTint">@color/solid_black</item>
+        <item name="tint">@color/solid_white</item>
     </style>
 
     <style name="registration_button">
