@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.flow
 class FeelingRepository {
     val allFeelings: Flow<List<Feeling>> = flow {
         val feelings = mutableListOf<Feeling>()
-        for (i in 1..100) {
+        for (i in 1..4) {
             feelings.add(Feeling())
         }
         emit(feelings)

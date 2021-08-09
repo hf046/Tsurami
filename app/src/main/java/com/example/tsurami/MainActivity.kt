@@ -22,12 +22,12 @@ class MainActivity : AppCompatActivity() {
     private val arl: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult? ->
-        Timber.d("ActivityResultCallback")
-        Timber.d("$this")
+        Timber.d("\\[:ActivityResultCallback]")
+//        Timber.d("\\:$this")
+        Timber.d("\\:[:result?.resultCode]:${result?.resultCode};")
         if (result?.resultCode == Activity.RESULT_OK) {
             result.data?.let { data: Intent ->
-                Timber.d("RESULT_OK")
-                Timber.d("[:data]:${data.hashCode()};")
+                Timber.d("\\:")
                 Timber.d("|[:key:val]")
                 Timber.d("|:EXTRA_REPLY_DATETIME   :${data.getLongExtra(NewFeelingActivity.EXTRA_REPLY_DATETIME, 0)}")
                 Timber.d("|:EXTRA_REPLY_LOCATION   :${data.getStringExtra(NewFeelingActivity.EXTRA_REPLY_LOCATION)}")
@@ -37,35 +37,56 @@ class MainActivity : AppCompatActivity() {
                 Timber.d(";")
             }
         } else {
-            Timber.d("!RESULT_OK")
+            Timber.d("\\:<<result is empty>>")
             Toast.makeText(
                 applicationContext,
                 R.string.empty_not_saved,
                 Toast.LENGTH_LONG
             ).show()
         }
+//        Timber.d("\\:$this")
+        Timber.d(";")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Timber.d("onCreate()")
+        Timber.d("\\[:onCreate]")
+//        Timber.d("\\:$this")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Timber.d("\\:<<setting recyclerView>>")
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = FeelingListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        Timber.d("\\:<<read from ViewModel>>")
         feelingViewModel.allFeelings.observe(this) { feelings ->
+            Timber.d("\\[:Observer]")
+//            Timber.d("\\:$this")
+            Timber.d("\\:[:feelings]:{$feelings};")
+            Timber.d("\\:<<submit feelings to the Recyclerview Adapter>>")
             feelings.let { adapter.submitList(it) }
+//            adapter.submitList(feelings)
+//            Timber.d("\\:$this")
+            Timber.d(";")
         }
 
+        Timber.d("\\:<<setting fab>>")
         val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener() {
-            Timber.d("fab onClick()")
+        fab.setOnClickListener {
+            Timber.d("\\[:onClick]")
+            Timber.d("\\:[:it]:$it;")
+//            Timber.d("\\:$this")
+            Timber.d("\\:<<make Intent>>")
             val intent = Intent(this@MainActivity, NewFeelingActivity::class.java)
-            Timber.d("<Intent>[:hash:intent]:${intent.hashCode()}:${intent};")
+            Timber.d("\\:[:intent]:$intent;")
+            Timber.d("\\:arl.launch(intent)")
             arl.launch(intent)
+//            Timber.d("\\:$this")
+            Timber.d(";")
         }
+//        Timber.d("\\:$this")
+        Timber.d(";")
     }
 }
