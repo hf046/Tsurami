@@ -12,18 +12,18 @@ class FeelingApplication : Application() {
     override fun onCreate() {
         Log.d(TAG, "\\[:onCreate]")
         super.onCreate()
-        Log.d(TAG, "\\:<<configureTimber>>")
+        Log.d(TAG, "\\:configureTimber")
         configureTimber()
-        Log.d(TAG, ";")
+        Log.d(TAG, "\\:onCreate end\n;")
     }
 
     private fun configureTimber() {
         Log.d(TAG, "\\[:configureTimber]")
         Log.d(TAG, "\\:[BuildConfig.DEBUG]:${BuildConfig.DEBUG};")
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "\\:<<setting Timber>>")
+            Log.d(TAG, "\\:setting Timber")
             Timber.plant(Timber.DebugTree())
         }
-        Log.d(TAG, ";")
+        Log.d(TAG, "\\:configureTimer end\n;")
     }
 }

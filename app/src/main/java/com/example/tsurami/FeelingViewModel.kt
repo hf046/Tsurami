@@ -14,16 +14,14 @@ class FeelingViewModel(private val repository: FeelingRepository) : ViewModel() 
 class FeelingViewModelFactory(private val repository: FeelingRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         Timber.d("\\[:create]")
-        Timber.d("\\:$this")
         if (modelClass.isAssignableFrom(FeelingViewModel::class.java)) {
-            Timber.d("\\:<<make FeelingViewModel>>")
+            Timber.d("\\:make FeelingViewModel")
             Timber.d("\\:$this")
             Timber.d(";")
             @Suppress("UNCHECKED_CAST")
             return FeelingViewModel(repository) as T
         }
-        Timber.d("\\:$this")
-        Timber.d(";")
+        Timber.d("\\:create end\n;")
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }

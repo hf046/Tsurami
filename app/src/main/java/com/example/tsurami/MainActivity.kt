@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
     private val arl: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult? ->
-        Timber.d("\\[:ActivityResultCallback]")
-//        Timber.d("\\:$this")
-        Timber.d("\\:[:result?.resultCode]:${result?.resultCode};")
+        Timber.d("\\[:result callback]")
+        Timber.d("\\:check result status")
         if (result?.resultCode == Activity.RESULT_OK) {
+            Timber.d("\\:get input data from Intent")
             result.data?.let { data: Intent ->
                 Timber.d("\\:")
                 Timber.d("|[:key:val]")
@@ -37,56 +37,57 @@ class MainActivity : AppCompatActivity() {
                 Timber.d(";")
             }
         } else {
-            Timber.d("\\:<<result is empty>>")
+            Timber.d("\\:fail to get result")
+            Timber.d("\\:show fail msg")
             Toast.makeText(
                 applicationContext,
                 R.string.empty_not_saved,
                 Toast.LENGTH_LONG
             ).show()
         }
-//        Timber.d("\\:$this")
-        Timber.d(";")
+        Timber.d("\\:result callback end\n;")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("\\[:onCreate]")
-//        Timber.d("\\:$this")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Timber.d("\\:<<setting recyclerView>>")
+        Timber.d("\\:get elements from layout")
+        Timber.d("\\:(recyclerView, adapter)")
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
         val adapter = FeelingListAdapter()
+
+        Timber.d("\\:setup recyclerView")
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        Timber.d("\\:<<read from ViewModel>>")
+        Timber.d("\\:setup the view-model's livedata observer")
         feelingViewModel.allFeelings.observe(this) { feelings ->
-            Timber.d("\\[:Observer]")
-//            Timber.d("\\:$this")
+            Timber.d("\\[:observe]")
             Timber.d("\\:[:feelings]:{$feelings};")
-            Timber.d("\\:<<submit feelings to the Recyclerview Adapter>>")
+            Timber.d("\\:submit feelings to the Recyclerview Adapter")
             feelings.let { adapter.submitList(it) }
 //            adapter.submitList(feelings)
-//            Timber.d("\\:$this")
-            Timber.d(";")
+            Timber.d("\\:observe end\n;")
         }
 
-        Timber.d("\\:<<setting fab>>")
+        Timber.d("\\:get element from layout")
+        Timber.d("\\:(FloatingActionButton)")
         val fab = findViewById<FloatingActionButton>(R.id.fab)
+        Timber.d("\\:setting fab")
         fab.setOnClickListener {
             Timber.d("\\[:onClick]")
             Timber.d("\\:[:it]:$it;")
 //            Timber.d("\\:$this")
-            Timber.d("\\:<<make Intent>>")
+            Timber.d("\\:make Intent")
             val intent = Intent(this@MainActivity, NewFeelingActivity::class.java)
-            Timber.d("\\:[:intent]:$intent;")
             Timber.d("\\:arl.launch(intent)")
             arl.launch(intent)
 //            Timber.d("\\:$this")
-            Timber.d(";")
+            Timber.d("\\:onClick end\n;")
         }
 //        Timber.d("\\:$this")
-        Timber.d(";")
+        Timber.d("\\:onCreate end\n;")
     }
 }
