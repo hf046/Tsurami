@@ -21,15 +21,15 @@
             tools:context=".NewFeelingActivity">
 
             <SeekBar
-                android:id="@+id/sanity"
+                android:id="@+id/mental_param_a"
                 style="@style/input_element" />
 
             <SeekBar
-                android:id="@+id/activeness"
+                android:id="@+id/mental_param_b"
                 style="@style/input_element" />
 
             <EditText
-                android:id="@+id/description"
+                android:id="@+id/comment"
                 style="@style/input_element"
                 android:autofillHints='""'
                 android:ems="10"

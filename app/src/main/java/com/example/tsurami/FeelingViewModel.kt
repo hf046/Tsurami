@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import com.example.tsurami.entity.Feeling
 import timber.log.Timber
 import java.lang.IllegalArgumentException
 

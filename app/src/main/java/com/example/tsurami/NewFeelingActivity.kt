@@ -16,6 +16,9 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import com.example.tsurami.entity.Comment
+import com.example.tsurami.entity.Feeling
+import com.example.tsurami.entity.converter.Converter
 import com.google.android.gms.location.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -43,17 +46,17 @@ class NewFeelingActivity : AppCompatActivity() {
 
         Timber.d("\\:get elements from layout")
         Timber.d("\\:setup elements")
-        val sanity = findViewById<SeekBar>(R.id.sanity)
-        sanity.max = 1000
-        sanity.min = 0
-        sanity.progress = 500
+        val mentalParamA = findViewById<SeekBar>(R.id.mental_param_a)
+        mentalParamA.max = 1000
+        mentalParamA.min = 0
+        mentalParamA.progress = 500
 
-        val activeness = findViewById<SeekBar>(R.id.activeness)
-        activeness.max = 1000
-        activeness.min = 0
-        activeness.progress = 500
+        val mentalParamB = findViewById<SeekBar>(R.id.mental_param_b)
+        mentalParamB.max = 1000
+        mentalParamB.min = 0
+        mentalParamB.progress = 500
 
-        val description = findViewById<EditText>(R.id.description)
+        val comment = findViewById<EditText>(R.id.comment)
 
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener() {
@@ -61,13 +64,40 @@ class NewFeelingActivity : AppCompatActivity() {
             Timber.d("\\:[:location]:$location;")
             Timber.d("\\:create Intent")
             val replyIntent = Intent()
+            Timber.d("\\:create Converter")
+
+            val converter = Converter()
+
+            var location4DB: com.example.tsurami.entity.Location? = null
+            location?.let{
+                Timber.d("\\:convert location")
+                location4DB = converter.locApp2DB(it)
+            }
+            Timber.d("\\:[:location4DB]:$location4DB")
+            val date = Date()
+            val feeling4DB = Feeling(
+                -1,
+                location4DB,
+                date,
+                date,
+                mentalParamA.progress,
+                mentalParamB.progress
+            )
+            var comment4DB: Comment? = null
+            if (comment.text.isNotEmpty()) {
+                comment4DB = Comment(
+                    -1,
+                    feeling4DB.id,
+                    date,
+                    date,
+                    comment.text.toString()
+                )
+            }
 
             Timber.d("\\:store input data in Intent")
-            replyIntent.putExtra(EXTRA_REPLY_DATETIME, Date().time)
-            replyIntent.putExtra(EXTRA_REPLY_SANITY, sanity.progress)
-            replyIntent.putExtra(EXTRA_REPLY_ACTIVENESS, activeness.progress)
-            replyIntent.putExtra(EXTRA_REPLY_DESCRIPTION, description.text.toString())
-            replyIntent.putExtra(EXTRA_REPLY_LOCATION, location.toString())
+            replyIntent.putExtra(EXTRA_REPLY_FEELING, feeling4DB)
+            replyIntent.putExtra(EXTRA_REPLY_LOCATION, location4DB)
+            replyIntent.putExtra(EXTRA_REPLY_COMMENT, comment4DB)
 
             Timber.d("\\:set result")
             setResult(Activity.RESULT_OK, replyIntent)
@@ -249,10 +279,8 @@ class NewFeelingActivity : AppCompatActivity() {
 
     companion object {
         // enum の方が良いのではないか
-        const val EXTRA_REPLY_DATETIME = "com.example.tsurami.REPLY_DATETIME"
+        const val EXTRA_REPLY_FEELING = "com.example.tsurami.REPLY_FEELING"
         const val EXTRA_REPLY_LOCATION = "com.example.tsurami.REPLY_LOCATION"
-        const val EXTRA_REPLY_SANITY = "com.example.tsurami.REPLY_SANITY"
-        const val EXTRA_REPLY_ACTIVENESS = "com.example.tsurami.REPLY_ACTIVENESS"
-        const val EXTRA_REPLY_DESCRIPTION = "com.example.tsurami.REPLY_DESCRIPTION"
+        const val EXTRA_REPLY_COMMENT = "com.example.tsurami.REPLY_COMMENT"
     }
 }

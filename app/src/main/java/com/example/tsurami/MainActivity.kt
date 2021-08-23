@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tsurami.dao.service.AddFeelingDao
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import timber.log.Timber
 
@@ -27,14 +28,19 @@ class MainActivity : AppCompatActivity() {
         if (result?.resultCode == Activity.RESULT_OK) {
             Timber.d("\\:get input data from Intent")
             result.data?.let { data: Intent ->
+                val feeling = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_FEELING)
+                val location = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_LOCATION)
+                val comment = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_COMMENT)
                 Timber.d("\\:")
                 Timber.d("|[:key:val]")
-                Timber.d("|:EXTRA_REPLY_DATETIME   :${data.getLongExtra(NewFeelingActivity.EXTRA_REPLY_DATETIME, 0)}")
-                Timber.d("|:EXTRA_REPLY_LOCATION   :${data.getStringExtra(NewFeelingActivity.EXTRA_REPLY_LOCATION)}")
-                Timber.d("|:EXTRA_REPLY_SANITY     :${data.getIntExtra(NewFeelingActivity.EXTRA_REPLY_SANITY, 0)}")
-                Timber.d("|:EXTRA_REPLY_ACTIVENESS :${data.getIntExtra(NewFeelingActivity.EXTRA_REPLY_ACTIVENESS, 0)}")
-                Timber.d("|:EXTRA_REPLY_DESCRIPTION:${data.getStringExtra(NewFeelingActivity.EXTRA_REPLY_DESCRIPTION)}")
+                Timber.d("|:EXTRA_REPLY_FEELING  :$feeling")
+                Timber.d("|:EXTRA_REPLY_LOCATION :$location")
+                Timber.d("|:EXTRA_REPLY_COMMENT :$comment")
                 Timber.d(";")
+                Timber.d("\\:save to DB")
+//                TODO("add Feeling to DB")
+//                TODO("add Location to DB")
+//                TODO("add Comment to DB")
             }
         } else {
             Timber.d("\\:fail to get result")
