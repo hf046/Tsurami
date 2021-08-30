@@ -11,13 +11,21 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tsurami.dao.service.AddFeelingDao
+import com.example.tsurami.db.entity.Comment
+import com.example.tsurami.db.entity.Feeling
+import com.example.tsurami.db.entity.Location
+import com.example.tsurami.db.entity.Test
+import com.example.tsurami.viewmodel.TestViewModel
+import com.example.tsurami.viewmodel.TestViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-    private val feelingViewModel: FeelingViewModel by viewModels {
-        FeelingViewModelFactory(FeelingRepository())
+//    private val tsuramiViewModel: TsuramiViewModel by viewModels {
+//        TsuramiViewModelFactory((application as TsuramiApplication).repository)
+//    }
+    private val testViewModel: TestViewModel by viewModels {
+        TestViewModelFactory((application as TestApplication).repository)
     }
 
     private val arl: ActivityResultLauncher<Intent> = registerForActivityResult(
@@ -28,19 +36,29 @@ class MainActivity : AppCompatActivity() {
         if (result?.resultCode == Activity.RESULT_OK) {
             Timber.d("\\:get input data from Intent")
             result.data?.let { data: Intent ->
-                val feeling = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_FEELING)
-                val location = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_LOCATION)
-                val comment = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_COMMENT)
+                var feeling = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_FEELING) as Feeling
+                val location = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_LOCATION) as Location?
+                val comment = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_COMMENT) as Comment?
+                val test = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_TEST) as Test?
                 Timber.d("\\:")
                 Timber.d("|[:key:val]")
                 Timber.d("|:EXTRA_REPLY_FEELING  :$feeling")
                 Timber.d("|:EXTRA_REPLY_LOCATION :$location")
                 Timber.d("|:EXTRA_REPLY_COMMENT :$comment")
+                Timber.d("|:EXTRA_REPLY_TEST :$test")
                 Timber.d(";")
                 Timber.d("\\:save to DB")
-//                TODO("add Feeling to DB")
-//                TODO("add Location to DB")
-//                TODO("add Comment to DB")
+//                TODO("add Feeling on DB")
+                Timber.d("\\:[:feeling]:$feeling;")
+//                tsuramiViewModel.insert(FeelingDatum(feeling, location, comment))
+//                val feelingDatum = FeelingDatum(feeling, location, comment)
+//                Timber.d("\\:[:feelingDatum]:$feelingDatum;")
+//                feeling.location_id = null
+//                tsuramiViewModel.insert(feeling)
+//                TODO("add Location on DB")
+//                TODO("add Comment on DB")
+//                TODO("add Test on DB")
+                if (test != null) testViewModel.insert(test)
             }
         } else {
             Timber.d("\\:fail to get result")
@@ -57,26 +75,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("\\[:onCreate]")
         super.onCreate(savedInstanceState)
+        Timber.d("\\:set R layout")
         setContentView(R.layout.activity_main)
 
-        Timber.d("\\:get elements from layout")
-        Timber.d("\\:(recyclerView, adapter)")
+        Timber.d("\\:get recyclerview")
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = FeelingListAdapter()
+        Timber.d("\\:create list adapter")
+//        val adapter = FeelingDatumListAdapter()
+        val adapter = TestListAdapter()
 
         Timber.d("\\:setup recyclerView")
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         Timber.d("\\:setup the view-model's livedata observer")
-        feelingViewModel.allFeelings.observe(this) { feelings ->
-            Timber.d("\\[:observe]")
-            Timber.d("\\:[:feelings]:{$feelings};")
-            Timber.d("\\:submit feelings to the Recyclerview Adapter")
-            feelings.let { adapter.submitList(it) }
-//            adapter.submitList(feelings)
-            Timber.d("\\:observe end\n;")
+//        tsuramiViewModel.allFeelingDatum.observe(this) { feelingData ->
+//            Timber.d("\\[:observe]")
+//            Timber.d("\\:[:feelingData]:$feelingData;")
+//            Timber.d("\\:submit feelings to the Recyclerview Adapter")
+//            feelingData.let { adapter.submitList(it) }
+//            Timber.d("\\:observe end\n;")
+//        }
+        testViewModel.allTests.observe(this) { tests ->
+            tests.let { adapter.submitList(it) }
         }
+
 
         Timber.d("\\:get element from layout")
         Timber.d("\\:(FloatingActionButton)")

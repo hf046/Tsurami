@@ -1,7 +1,7 @@
-package com.example.tsurami.entity.converter
+package com.example.tsurami.db.entity.converter
 
 import androidx.room.TypeConverter
-import com.example.tsurami.entity.Location
+import com.example.tsurami.db.entity.Location
 import java.util.Date
 
 class Converter {
@@ -20,7 +20,7 @@ class Converter {
     fun locApp2DB(appLoc: android.location.Location?): Location? {
         if (appLoc == null) return null
         return Location(
-            -1,
+            0,
             appLoc.time,
             appLoc.latitude,
             appLoc.longitude,
@@ -54,4 +54,6 @@ class Converter {
 //        }
 //        return null
 //    }
+
+//    Test
 }

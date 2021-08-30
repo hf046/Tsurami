@@ -1,6 +1,6 @@
 package com.example.tsurami
 
-import com.example.tsurami.entity.Feeling
+import com.example.tsurami.db.entity.Feeling
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

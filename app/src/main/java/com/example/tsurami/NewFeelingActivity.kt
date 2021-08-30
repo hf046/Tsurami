@@ -16,9 +16,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
-import com.example.tsurami.entity.Comment
-import com.example.tsurami.entity.Feeling
-import com.example.tsurami.entity.converter.Converter
+import com.example.tsurami.db.entity.Comment
+import com.example.tsurami.db.entity.Feeling
+import com.example.tsurami.db.entity.Test
+import com.example.tsurami.db.entity.converter.Converter
 import com.google.android.gms.location.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -68,7 +69,7 @@ class NewFeelingActivity : AppCompatActivity() {
 
             val converter = Converter()
 
-            var location4DB: com.example.tsurami.entity.Location? = null
+            var location4DB: com.example.tsurami.db.entity.Location? = null
             location?.let{
                 Timber.d("\\:convert location")
                 location4DB = converter.locApp2DB(it)
@@ -76,8 +77,8 @@ class NewFeelingActivity : AppCompatActivity() {
             Timber.d("\\:[:location4DB]:$location4DB")
             val date = Date()
             val feeling4DB = Feeling(
-                -1,
-                location4DB,
+                0,
+                location4DB?.id,
                 date,
                 date,
                 mentalParamA.progress,
@@ -86,11 +87,19 @@ class NewFeelingActivity : AppCompatActivity() {
             var comment4DB: Comment? = null
             if (comment.text.isNotEmpty()) {
                 comment4DB = Comment(
-                    -1,
+                    0,
                     feeling4DB.id,
                     date,
                     date,
                     comment.text.toString()
+                )
+            }
+            var test: Test? = null
+            val text = comment.text.toString()
+            if (text.isNotEmpty()) {
+                test = Test(
+                    0,
+                    text
                 )
             }
 
@@ -98,6 +107,7 @@ class NewFeelingActivity : AppCompatActivity() {
             replyIntent.putExtra(EXTRA_REPLY_FEELING, feeling4DB)
             replyIntent.putExtra(EXTRA_REPLY_LOCATION, location4DB)
             replyIntent.putExtra(EXTRA_REPLY_COMMENT, comment4DB)
+            replyIntent.putExtra(EXTRA_REPLY_TEST, test)
 
             Timber.d("\\:set result")
             setResult(Activity.RESULT_OK, replyIntent)
@@ -282,5 +292,6 @@ class NewFeelingActivity : AppCompatActivity() {
         const val EXTRA_REPLY_FEELING = "com.example.tsurami.REPLY_FEELING"
         const val EXTRA_REPLY_LOCATION = "com.example.tsurami.REPLY_LOCATION"
         const val EXTRA_REPLY_COMMENT = "com.example.tsurami.REPLY_COMMENT"
+        const val EXTRA_REPLY_TEST = "com.example.tsurami.REPLY_TEST"
     }
 }

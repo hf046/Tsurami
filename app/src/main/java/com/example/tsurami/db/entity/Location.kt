@@ -1,4 +1,4 @@
-package com.example.tsurami.entity
+package com.example.tsurami.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

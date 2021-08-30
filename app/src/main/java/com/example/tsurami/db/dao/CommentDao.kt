@@ -1,9 +1,9 @@
-package com.example.tsurami.dao
+package com.example.tsurami.db.dao
 
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.tsurami.entity.Comment
+import com.example.tsurami.db.entity.Comment
 
 interface CommentDao {
     @Query(

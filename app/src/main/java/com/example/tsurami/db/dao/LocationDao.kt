@@ -1,9 +1,9 @@
-package com.example.tsurami.dao
+package com.example.tsurami.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
-import com.example.tsurami.entity.Location
+import com.example.tsurami.db.entity.Location
 
 @Dao
 interface LocationDao {

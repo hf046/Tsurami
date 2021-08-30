@@ -1,7 +1,8 @@
-package com.example.tsurami.entity
+package com.example.tsurami.db.entity
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.Serializable
 import java.util.Date
@@ -16,20 +17,21 @@ import java.util.Date
             onDelete = ForeignKey.CASCADE
         )
     ]
-//    ,
-//    indices = [
-//        Index(
-//            value = ["location_id"],
-//            unique = true
-//        )
-//    ]
+    ,
+    indices = [
+        Index(
+            value = ["location_id"]
+            ,
+            unique = true
+        )
+    ]
 )
 data class Feeling(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
 //    location
-//    val location_id: Int?,
-    val location: Location?,
+    var location_id: Int?,
+//    val location: Location?,
 
 //    dates
     val create_date: Date,

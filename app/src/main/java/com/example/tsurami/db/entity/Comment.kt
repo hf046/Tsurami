@@ -1,8 +1,6 @@
-package com.example.tsurami.entity
+package com.example.tsurami.db.entity
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.io.Serializable
 import java.util.*
 
@@ -15,6 +13,12 @@ import java.util.*
             parentColumns = ["id"],
             childColumns = ["feeling_id"],
             onDelete = ForeignKey.CASCADE
+        )
+    ],
+    indices = [
+        Index(
+            value = ["feeling_id"],
+            unique = true
         )
     ]
 )

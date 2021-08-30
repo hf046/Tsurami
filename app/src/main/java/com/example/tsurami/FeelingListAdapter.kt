@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tsurami.FeelingListAdapter.FeelingViewHolder
-import com.example.tsurami.entity.Feeling
+import com.example.tsurami.db.entity.Feeling
 import timber.log.Timber
 
 class FeelingListAdapter : ListAdapter<Feeling, FeelingViewHolder>(FEELINGS_COMPARATOR) {

@@ -1,10 +1,10 @@
-package com.example.tsurami.dao
+package com.example.tsurami.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.tsurami.entity.Feeling
+import com.example.tsurami.db.entity.Feeling
 
 @Dao
 interface FeelingDao {
