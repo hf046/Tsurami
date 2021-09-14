@@ -1,4 +1,4 @@
-package com.example.tsurami.datum
+package com.example.tsurami.db.datum
 
 import androidx.room.Embedded
 import androidx.room.Relation

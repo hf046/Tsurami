@@ -1,9 +1,6 @@
 package com.example.tsurami.db.entity
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.io.Serializable
 import java.util.Date
 
@@ -14,29 +11,32 @@ import java.util.Date
             entity = Location::class,
             parentColumns = ["id"],
             childColumns = ["location_id"],
-            onDelete = ForeignKey.CASCADE
+            onDelete = ForeignKey.NO_ACTION
         )
-    ]
-    ,
+    ],
     indices = [
         Index(
-            value = ["location_id"]
-            ,
+            value = ["location_id"],
             unique = true
         )
     ]
 )
 data class Feeling(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     val id: Int,
 //    location
-    var location_id: Int?,
-//    val location: Location?,
+    @ColumnInfo(name = "location_id")
+    var locationId: Int?,
 
 //    dates
-    val create_date: Date,
-    val update_date: Date,
+    @ColumnInfo(name = "create_date")
+    val createDate: Date,
+    @ColumnInfo(name = "update_date")
+    val updateDate: Date,
 //    mental_params
-    val mental_param_a: Int,
-    val mental_param_b: Int
+    @ColumnInfo(name = "mental_param_a")
+    val mentalParamA: Int,
+    @ColumnInfo(name = "mental_param_b")
+    val mentalParamB: Int
 ): Serializable

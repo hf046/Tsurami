@@ -5,8 +5,7 @@ import java.io.Serializable
 import java.util.*
 
 @Entity(
-    tableName = "comment"
-    ,
+    tableName = "comment",
     foreignKeys = [
         ForeignKey(
             entity = Feeling::class,
@@ -24,13 +23,17 @@ import java.util.*
 )
 data class Comment(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     val id: Int,
-    val feeling_id: Int,
-//    val feeling: Feeling,
+    @ColumnInfo(name = "feeling_id")
+    var feelingId: Int,
 
 //    dates
-    val create_date: Date,
-    val update_date: Date,
+    @ColumnInfo(name = "create_date")
+    val createDate: Date,
+    @ColumnInfo(name = "update_date")
+    val updateDate: Date,
 //    content
+    @ColumnInfo(name = "content")
     val content: String
 ): Serializable
