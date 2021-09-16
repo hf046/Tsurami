@@ -1,4 +1,4 @@
-package com.example.tsurami
+package com.example.tsurami.ui
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import com.example.tsurami.R
 import com.example.tsurami.db.entity.Comment
 import com.example.tsurami.db.entity.Feeling
 import com.example.tsurami.db.entity.converter.Converter

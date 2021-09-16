@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/small_padding"
-    tools:context=".NewFeelingActivity">
+    tools:context=".ui.NewFeelingActivity">
 
     <LinearLayout
         style="@style/base_plate"
         android:orientation="vertical"
-        tools:context=".NewFeelingActivity">
+        tools:context=".ui.NewFeelingActivity">
 
         <LinearLayout
             style="@style/inputs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".NewFeelingActivity">
+            tools:context=".ui.NewFeelingActivity">
 
             <SeekBar
                 android:id="@+id/mental_param_a"

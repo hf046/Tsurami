@@ -1,4 +1,4 @@
-package com.example.tsurami
+package com.example.tsurami.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,11 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.tsurami.FeelingDatumListAdapter
+import com.example.tsurami.R
+import com.example.tsurami.TsuramiApplication
 import com.example.tsurami.db.entity.Comment
 import com.example.tsurami.db.entity.Feeling
 import com.example.tsurami.db.entity.Location
@@ -42,6 +47,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val adapter = FeelingDatumListAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        feelingDatumViewModel.allFeelingData.observe(this) { words ->
+            words.let { adapter.submitList(it) }
+        }
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
