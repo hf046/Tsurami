@@ -51,8 +51,8 @@
     </style>
 
     <style name="fab">
-        <item name="android:backgroundTint">@color/solid_black</item>
-        <item name="tint">@color/solid_white</item>
+        <item name="android:backgroundTint">@color/solid_white</item>
+        <item name="tint">@color/solid_black</item>
     </style>
 
     <style name="registration_button">
