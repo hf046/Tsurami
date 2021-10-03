@@ -2,18 +2,16 @@ package com.example.tsurami.db.entity.converter
 
 import androidx.room.TypeConverter
 import com.example.tsurami.db.entity.Location
-import java.util.Date
+import java.time.ZonedDateTime
 
 class Converter {
-//    見本だとnullable型で統一されている。
-//    Date
     @TypeConverter
-    fun convTimestamp2Date(value: Long): Date {
-        return Date(value)
+    fun convAppDate2DBDate(value: String): ZonedDateTime {
+        return ZonedDateTime.parse(value)
     }
     @TypeConverter
-    fun convDate2Timestamp(date: Date): Long {
-        return date.time
+    fun convDBDate2AppDate(date: ZonedDateTime): String {
+        return date.toString()
     }
 
 //    Location

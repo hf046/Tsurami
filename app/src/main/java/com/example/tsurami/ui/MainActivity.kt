@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tsurami.FeelingDatumListAdapter
 import com.example.tsurami.R
 import com.example.tsurami.TsuramiApplication
-import com.example.tsurami.db.entity.Comment
-import com.example.tsurami.db.entity.Feeling
-import com.example.tsurami.db.entity.Location
+import com.example.tsurami.db.datum.FeelingDatum
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.example.tsurami.viewmodel.*
 
@@ -30,10 +28,8 @@ class MainActivity : AppCompatActivity() {
     ) { result: ActivityResult? ->
         if (result?.resultCode == Activity.RESULT_OK) {
             result.data?.let { data: Intent ->
-                val feeling = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_FEELING) as Feeling
-                val location = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_LOCATION) as Location?
-                val comment = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_COMMENT) as Comment?
-                feelingDatumViewModel.insert(feeling, location, comment)
+                val feelingDatum = data.getSerializableExtra(NewFeelingActivity.EXTRA_REPLY_FEELING_DATUM) as FeelingDatum
+                feelingDatumViewModel.save(feelingDatum)
             }
         } else {
             Toast.makeText(

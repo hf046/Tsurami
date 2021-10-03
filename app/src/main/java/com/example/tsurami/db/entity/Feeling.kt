@@ -2,7 +2,7 @@ package com.example.tsurami.db.entity
 
 import androidx.room.*
 import java.io.Serializable
-import java.util.Date
+import java.time.ZonedDateTime
 
 @Entity(
     tableName = "feeling",
@@ -31,9 +31,9 @@ data class Feeling(
 
 //    dates
     @ColumnInfo(name = "create_date")
-    val createDate: Date,
+    val createDate: ZonedDateTime,
     @ColumnInfo(name = "update_date")
-    val updateDate: Date,
+    val updateDate: ZonedDateTime,
 //    mental_params
     @ColumnInfo(name = "mental_param_a")
     val mentalParamA: Int,

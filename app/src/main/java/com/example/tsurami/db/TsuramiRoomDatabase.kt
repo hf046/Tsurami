@@ -10,7 +10,6 @@ import com.example.tsurami.db.entity.Location
 import com.example.tsurami.db.entity.converter.Converter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @Database(
     entities = [

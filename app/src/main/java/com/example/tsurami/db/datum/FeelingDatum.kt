@@ -22,21 +22,19 @@ data class FeelingDatum(
         parentColumn = "id",
         entityColumn = "feeling_id"
     )
-    val comment: Comment?
-) {
+    val comments: List<Comment>
+) : Serializable {
     @SuppressLint("SimpleDateFormat")
     override fun toString(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd {HH:mm:ss}")
         return ":<FeelingDatum>\n" +
-                "  [:feeling :location :comment]\n" +
-                "  :<Feeling>\n" +
-                "    [:datetime :a :b]\n" +
-                "    :${sdf.format(feeling.createDate)}\n" +
+                "  [:feeling :location :comments]\n" +
+                "  :<Feeling>[:datetime :a :b]\n" +
+                "    :${feeling.createDate.format(formatter)}\n" +
                 "    :${feeling.mentalParamA}\n" +
                 "    :${feeling.mentalParamB}\n" +
                 "  ;\n" +
-                "  :<Location>\n" +
-                "    [:latitude :longitude]\n" +
+                "  :<Location>[:latitude :longitude]\n" +
                 "    :${location?.latitude}\n" +
                 "    :${location?.longitude}\n" +
                 "  ;\n" +
