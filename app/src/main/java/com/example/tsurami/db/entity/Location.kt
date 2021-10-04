@@ -15,7 +15,7 @@ data class Location(
 
 //    location data
     @ColumnInfo(name = "time")
-    val time: Long, // milliseconds since epoch (January 1, 1970)
+    val time: Long?, // milliseconds since epoch (January 1, 1970)
     @ColumnInfo(name = "latitude")
     val latitude: Double,
     @ColumnInfo(name = "longitude")

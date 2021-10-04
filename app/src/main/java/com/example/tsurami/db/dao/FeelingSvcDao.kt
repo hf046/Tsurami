@@ -19,7 +19,7 @@ interface FeelingSvcDao {
     suspend fun insert(comment: Comment): Long
 
     @Transaction
-    suspend fun insert(feeling: Feeling, location: Location?, comment: Comment?) {
+    suspend fun insert(feeling: Feeling, location: Location?, comments: List<Comment>) {
         var locationId : Int? = null
         if (location != null) {
             locationId = insert(location).toInt()
@@ -28,9 +28,9 @@ interface FeelingSvcDao {
         feeling.locationId = locationId
         val feelingId = insert(feeling)
 
-        if (comment != null) {
-            comment.feelingId = feelingId.toInt()
-            insert(comment)
+        comments.forEach {
+            it.feelingId = feelingId.toInt()
+            insert(it)
         }
     }
 

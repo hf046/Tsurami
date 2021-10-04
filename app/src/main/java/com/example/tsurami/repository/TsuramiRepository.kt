@@ -13,7 +13,7 @@ class TsuramiRepository(private val feelingSvcDao: FeelingSvcDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(feeling: Feeling, location: Location?, comment: Comment?) {
-        feelingSvcDao.insert(feeling, location, comment)
+    suspend fun insert(feeling: Feeling, location: Location?, comments: List<Comment>) {
+        feelingSvcDao.insert(feeling, location, comments)
     }
 }

@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
         Location::class,
         Comment::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(

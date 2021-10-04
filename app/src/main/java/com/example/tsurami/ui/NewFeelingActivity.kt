@@ -17,9 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.example.tsurami.R
-import com.example.tsurami.db.entity.Comment
-import com.example.tsurami.db.entity.Feeling
-import com.example.tsurami.db.entity.converter.Converter
+import com.example.tsurami.db.datum.FeelingDatum
 import com.google.android.gms.location.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
@@ -29,7 +27,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
-import java.util.Date
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -58,38 +55,14 @@ class NewFeelingActivity : AppCompatActivity() {
         button.setOnClickListener() {
             val replyIntent = Intent()
 
-            val converter = Converter()
-
-            var location4DB: com.example.tsurami.db.entity.Location? = null
-            location?.let{
-                location4DB = converter.convAppLoc2ELoc(it)
-            }
-
-            val date = Date()
-            val feeling4DB = Feeling(
-                0,
-                location4DB?.id,
-                date,
-                date,
+            val feelingDatum = FeelingDatum.createFeelingDatum(
                 mentalParamA.progress,
-                mentalParamB.progress
+                mentalParamB.progress,
+                location,
+                comment.text.toString()
             )
 
-            var comment4DB: Comment? = null
-            if (comment.text.isNotEmpty()) {
-                comment4DB = Comment(
-                    0,
-                    feeling4DB.id,
-                    date,
-                    date,
-                    comment.text.toString()
-                )
-            }
-
-            replyIntent.putExtra(EXTRA_REPLY_FEELING, feeling4DB)
-            replyIntent.putExtra(EXTRA_REPLY_LOCATION, location4DB)
-            replyIntent.putExtra(EXTRA_REPLY_COMMENT, comment4DB)
-
+            replyIntent.putExtra(EXTRA_REPLY_FEELING_DATUM, feelingDatum)
             setResult(Activity.RESULT_OK, replyIntent)
             finish()
         }
@@ -208,8 +181,9 @@ class NewFeelingActivity : AppCompatActivity() {
 
     companion object {
         // enum の方が良いのではないか
-        const val EXTRA_REPLY_FEELING = "com.example.tsurami.REPLY_FEELING"
-        const val EXTRA_REPLY_LOCATION = "com.example.tsurami.REPLY_LOCATION"
-        const val EXTRA_REPLY_COMMENT = "com.example.tsurami.REPLY_COMMENT"
+//        const val EXTRA_REPLY_FEELING = "com.example.tsurami.REPLY_FEELING"
+//        const val EXTRA_REPLY_LOCATION = "com.example.tsurami.REPLY_LOCATION"
+//        const val EXTRA_REPLY_COMMENT = "com.example.tsurami.REPLY_COMMENT"
+        const val EXTRA_REPLY_FEELING_DATUM = "com.example.tsurami.REPLY_FEELING_DATUM"
     }
 }
